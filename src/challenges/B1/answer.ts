@@ -10,7 +10,7 @@
 // ↓ uncomment bellow lines and add your response!
 
 export default function ({ events }: { events: EventDatetime[] }): EventDatetime[] {
-    return [];
+    return events.sort((a, b) => a.startDatetime > b.startDatetime ? 1 : (a.startDatetime === b.startDatetime ? (a.endDatetime > b.endDatetime ? 1 : -1) : -1));
 }
 
 

@@ -31,11 +31,32 @@
  */
 
 // ↓ uncomment bellow lines and add your response!
-/*
 export default function ({ video }: { video: VideoWithNotes }): VideoSegment[] {
-    return [];
+    let currentTime = '00:00:00';
+    const segments: VideoSegment[] = [];
+    const sortedNotes = video.notes.sort((a, b) => a.fromTime > b.fromTime ? 1 : -1);
+    for (const note of sortedNotes) {
+        if (note.fromTime > currentTime) {
+            segments.push({
+                fromTime: currentTime,
+                toTime: note.fromTime
+            });
+        }
+        segments.push({
+            fromTime: note.fromTime,
+            toTime: note.toTime,
+            note: note.note
+        });
+        currentTime = note.toTime;
+    }
+    if (currentTime !== video.videoDuration) {
+        segments.push({
+            fromTime: currentTime,
+            toTime: video.videoDuration
+        });
+    }
+    return segments;
 }
-*/
 
 // used interfaces, do not touch
 export interface VideoWithNotes {

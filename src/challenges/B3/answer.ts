@@ -9,11 +9,30 @@
  */
 
 // ↓ uncomment bellow lines and add your response!
-/*
 export default function ({ groups }: { groups: GroupWithSills[] }): GroupWithSillsAndClosestGroups[] {
-    return [];
+    return groups.map((group) => {
+        let cpt = 0;
+        let index = 0;
+        let closests: GroupWithSills[] = [];
+        let maxCpt = 0;
+        groups.map((groupToCompare) => {
+            if (group.name !== groupToCompare.name)
+                group.skills.map((skill) => {
+                    if (groupToCompare.skills.includes(skill)) { cpt++ }
+                })
+            if (cpt > maxCpt) {
+                maxCpt = cpt;
+                closests = [];
+                closests.push(groups[index]);
+            } else if (cpt === maxCpt) {
+                closests.push(groups[index]);
+            }
+            cpt = 0;
+            index++;
+        });
+        return {...group, closestGroups: closests.map((closest) => closest)}
+    })
 }
-*/
 
 // used interfaces, do not touch
 export interface GroupWithSills {
